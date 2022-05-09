@@ -8,3 +8,6 @@ class Comments(db.model):
     content = db.Column(db.text, nullable=False)
     author = db.Column(db.String(20), nullable=False, default='N/A')
     date_posted = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return 'Comment' + str(self.id)
