@@ -1,33 +1,27 @@
-from datetime import datetime
-from flask import Flask, Blueprint, render_template
-from flask_sqlalchemy import SQLAlchemy
-# from .main.views import main
-# def create_app():
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] =  'sqlite:///posts.db'
-db = SQLAlchemy(app)
+from app import create_app,db
+from flask_script import Manager,Server
+from application.models import User
+from flask_migrate import Migrate, MigrateCommand
 
-class Comments(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    author = db.Column(db.String(20), nullable=False, default='N/A')
-    date_posted = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
+#Creating app instance
+app = create_app('production')
 
-    def __repr__(self):
-        return 'Comment' + str(self.id)
-# from .main import models
+manager = Manager(app)
+manager.add_command('server',Server)
 
+migrate = Migrate(app,db)
+manager.add_command('db',MigrateCommand)
 
-#     app.register_blueprint(main)
+@manager.command
+def test():
+    """Run the unit tests."""
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
 
-#     return app
+@manager.shell
+def make_shell_context():
+    return dict(app = app,db = db,User = User)
 
-# # breakpoint()
-
-app.route('/')
-def index():
-    return 'Hello World'
-
-if __name__=="__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    manager.run()
