@@ -1,6 +1,3 @@
-import imp
-from flask import Blueprint
-from datetime import datetime
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -8,9 +5,7 @@ from flask_bootstrap import Bootstrap
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_login import LoginManager
 from config import config_options
-
-
-main_blueprint = Blueprint('main',__name__)
+from ..main import main as main_blueprint
 
 
 bootstrap = Bootstrap()
