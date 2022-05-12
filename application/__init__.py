@@ -9,6 +9,10 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_login import LoginManager
 from config import config_options
 
+
+main_blueprint = Blueprint('main',__name__)
+
+
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 # mail = Mail()
@@ -32,7 +36,6 @@ def create_app(config_name):
     # mail.init_app(app)
 
     # Registering the blueprint
-    from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
     # configuring UploadSet
