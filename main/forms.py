@@ -6,7 +6,7 @@ class PitchForm(FlaskForm):
 
     title = StringField('Title',validators=[Required()])
     text = TextAreaField('Your Pitch',validators=[Required()])
-    category = SelectField('Type',choices=[('Business','Business pitch'),('Work','Work pitch'),('Sales','Sales pitch')],validators=[Required()])
+    category = SelectField('Type',choices=[('Business','Business pitch'),('Team','Team pitch'),('Love','Love pitch')],validators=[Required()])
     submit = SubmitField('Post Pitch')
 
 

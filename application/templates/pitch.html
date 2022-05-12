@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{%block styles%}
+{{ super() }}
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Ranga" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+{%endblock%}
+<!-- Content block -->
+{%block content%}
+<div class="card">
+    <div class="container card-body" style="font-family: 'Indie Flower', cursive;">
+        <div class="row text-center">
+            <h3>{{pitch.pitch_title}}</h3>
+            <hr style="width:100%; color: black; height:1px;">
+            <div class="container">
+                <p>{{pitch.pitch_content}}</p>
+
+                <p>Posted on {{date}} by {{pitch.user.username| capitalize}}</p>
+                <a href="/pitch/{{pitch.id}}?like=1">
+                    <i class="far fa-thumbs-up"></i>
+                </a>{{pitch.likes}} <a href="/pitch/{{pitch.id}}?dislike=1">
+                    <i class="far fa-thumbs-down"></i>
+                </a>{{pitch.dislikes}}
+            </div>
+
+        </div>
+        <br>
+        <div class="row text-center container" style="font-family: 'Acme', sans-serif;">
+            <hr>
+            {% if current_user.is_authenticated %}
+            {{ wtf.quick_form(comment_form) }}
+            {%endif%}
+            {{macro.displayComments(comments)}}
+        </div>
+
+    </div>
+</div>
+{%endblock%}

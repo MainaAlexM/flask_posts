@@ -14,7 +14,7 @@ class Config:
     '''
     General configuration parent class
     '''
-    SECRET_KEY = os.getenv['SECRET_KEY']
+    # SECRET_KEY = os.getenv['SECRET_KEY']
     SQLALCHEMY_DATABASE_URI= os.getenv('DATABASE_URL')
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     SQLALCHEMY_TRACK_MODIFICATIONS = True

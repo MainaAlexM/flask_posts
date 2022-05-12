@@ -1,0 +1,4 @@
+Hello {{user.username}}
+Welcome to the Best Pitch
+We have just seen you have signed up for our application and want to welcome you to this family,
+You can now post your pitches and view other pitches.
