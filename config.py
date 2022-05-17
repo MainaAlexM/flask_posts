@@ -1,14 +1,13 @@
 import os
+from decouple import config
 
 class Config:
     '''
     General configuration parent class
     '''
 
-    # DATABASE_URL='postgresql+psycopg2://moringa:miner@localhost:5432/pitches'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SECRET_KEY = config('KEY')
 
 class ProdConfig(Config):
     '''
@@ -17,8 +16,7 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-
+    SQLALCHEMY_DATABASE_URI = config('DATABASE_URL')
 
 class DevConfig(Config):
     '''
@@ -27,8 +25,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:miner@localhost:5432/pitches'
-
+    SQLALCHEMY_DATABASE_URI = config('DATABASE_URL')
 
     DEBUG = True
 
