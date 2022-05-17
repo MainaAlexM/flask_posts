@@ -1,0 +1,12 @@
+body {
+  font-family: sans-serif;
+  background: rgb(212, 245, 238);
+}
+
+#navigate {
+  background-color: #b9f1b2;
+}
+
+.categories{
+  display:flex;
+}
