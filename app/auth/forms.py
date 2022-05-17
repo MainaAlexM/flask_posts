@@ -9,9 +9,9 @@ class RegistrationForm(FlaskForm):
     '''
     email=StringField('Email Address',validators=[Required(),Email()])
     username=StringField('Create Username',validators=[Required()])
-    password=PasswordField("Password",validators=[Required(),
-    EqualTo('Password',message='Passwords Must Match')])
-    password_confirm=PasswordField('Confirm password',validators=[Required()])
+    password=PasswordField("password",validators=[Required(),
+    EqualTo('password',message='Passwords Must Match')])
+    password_confirm=PasswordField('Confirm Password',validators=[Required()])
     submit=SubmitField('Sign Up')
 
 
@@ -21,7 +21,7 @@ class RegistrationForm(FlaskForm):
         Functions takes in the data field and checks our database to confirm user Validation
         '''
         if User.query.filter_by(email = data_field.data).first():
-            raise ValidationError('there is an account with a similar email address')
+            raise ValidationError('There is an account with a similar email address')
 
     def validate_username(self,data_field):
         '''
@@ -33,6 +33,6 @@ class RegistrationForm(FlaskForm):
 # LOgin form that has 3 fields
 class LoginForm(FlaskForm):
     email=StringField('Email Address',validators=[Required(),Email()])
-    password=PasswordField('Password',validators=[Required()])
+    password=PasswordField('password',validators=[Required()])
     remember = BooleanField('Remember me')
     submit=SubmitField('Sign in')

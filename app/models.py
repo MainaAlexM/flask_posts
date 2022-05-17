@@ -19,6 +19,11 @@ class Category(db.Model):
     name = db.Column(db.String(255))
     description = db.Column(db.String(255))
 
+    Category =[
+        1,
+        "Love",
+        "I love Myself"
+    ]
     # save
     def save_category(self):
         '''

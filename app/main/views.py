@@ -12,7 +12,9 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    categories = Category.get_categories()
+    categories = Category.get_categories() 
+    # Test Printer
+    print(categories)
     title = 'Home - Pitches'
     return render_template('index.html', title = title, categories = categories)
 
@@ -63,6 +65,8 @@ def single_pitch(id):
     '''
 
     pitches = Peptalk.query.get(id)
+    # Test Printer
+    print(pitches)
 
     if pitches is None:
         abort(404)
