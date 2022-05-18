@@ -41,7 +41,7 @@ class Category(db.Model):
         return categories
 
 #pitches
-class Peptalk(db.Model):
+class Pitch(db.Model):
 
     """
     Lists pitches in each category
@@ -55,7 +55,7 @@ class Peptalk(db.Model):
     date_posted = db.Column(db.DateTime,default=datetime.now)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     category_id = db.Column(db.Integer,db.ForeignKey("categories.id"))
-    comment = db.relationship("Comments", backref="peptalk", lazy = "dynamic")
+    comment = db.relationship("Comments", backref="Pitch", lazy = "dynamic")
 
 
 
@@ -68,12 +68,12 @@ class Peptalk(db.Model):
 
     @classmethod
     def clear_pitches(cls):
-        Peptalk.all_pitches.clear()
+        Pitch.all_pitches.clear()
 
     # display pitches
     @classmethod
     def get_pitches(cls,id):
-        pitches = Peptalk.query.order_by(Peptalk.date_posted.desc()).filter_by(category_id=id).all()
+        pitches = Pitch.query.order_by(Pitch.date_posted.desc()).filter_by(category_id=id).all()
         return pitches
 
 
@@ -91,7 +91,7 @@ class User(UserMixin,db.Model):
     email=db.Column(db.String(255),unique=True,index=True)
     password_hash=db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
-    pitches = db.relationship("Peptalk", backref="user", lazy = "dynamic")
+    pitches = db.relationship("Pitch", backref="user", lazy = "dynamic")
     comment = db.relationship("Comments", backref="user", lazy = "dynamic")
 
     # securing our passwords
