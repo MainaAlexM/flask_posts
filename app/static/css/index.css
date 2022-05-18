@@ -1,12 +1,18 @@
 body {
   font-family: sans-serif;
-  background: rgb(212, 245, 238);
+  background: #0000;
+  
 }
 
 #navigate {
-  background-color: #b9f1b2;
+  background-color: #0000;
+  /* color: #ffff; */
 }
 
 /* .categories{
   display:flex;
 } */
+.intro{
+  font-weight: 700;
+  font-size: x-large; 
+}
