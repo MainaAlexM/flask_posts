@@ -7,9 +7,7 @@ class Config:
     '''
 
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    SECRET_KEY = config('SECRET_KEY')        #decouple
-    # SECRET_KEY = os.getenv['KEY']
-    # SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 class ProdConfig(Config):
     '''
@@ -27,7 +25,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:miner@localhost:5432/pitch'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
     DEBUG = True
 
