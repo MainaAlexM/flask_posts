@@ -1,9 +1,9 @@
 from flask import render_template,redirect,url_for,abort
 from . import main
-from ..models import Category, User,Peptalk, Comments
+from ..models import Category, User,Pitch, Comments
 from .. import db
 from flask_login import login_required, current_user
-from .forms import PeptalkForm,CommentForm
+from .forms import PitchForm,CommentForm, CategoryForm
 
 # Views
 @main.route('/')
@@ -18,6 +18,26 @@ def index():
     title = 'Home - Pitches'
     return render_template('index.html', title = title, categories = categories)
 
+@main.route('/add/category', methods=['GET','POST'])
+@login_required
+def new_category():
+    '''
+    View new group route function that returns a page with a form to create a category
+    '''
+    form = CategoryForm()
+
+    if form.validate_on_submit():
+        name = form.name.data
+        new_category = Category(name=name)
+        new_category.save_category()
+
+        return redirect(url_for('.index'))
+
+    
+    title = 'New category'
+    return render_template('new_category.html', category_form = form,title=title)
+
+
 @main.route('/category/<int:id>')
 def category(id):
     '''
@@ -29,7 +49,7 @@ def category(id):
     if category is None:
         abort(404)
         
-    pitches = Peptalk.get_pitches(id)
+    pitches = Pitch.get_pitches(id)
     title = "Pitches"
     return render_template('category.html', title = title, category = category,pitches = pitches)
 
@@ -40,7 +60,7 @@ def new_pitch(id):
     '''
     Function to check Pitches form
     '''
-    form = PeptalkForm()
+    form = PitchForm()
     category = Category.query.filter_by(id=id).first()
 
     if category is None:
@@ -49,7 +69,7 @@ def new_pitch(id):
     if form.validate_on_submit():
         content = form.content.data
         # user = current_user._get_current_object()
-        new_pitch = Peptalk(content=content,user_id=current_user.id,category_id=category.id)
+        new_pitch = Pitch(content=content,user_id=current_user.id,category_id=category.id)
         new_pitch.save_pitch()
         return redirect(url_for('.category', id = category.id))
 
@@ -64,7 +84,7 @@ def single_pitch(id):
     Function the returns a single pitch for comment to be added
     '''
 
-    pitches = Peptalk.query.get(id)
+    pitches = Pitch.query.get(id)
     # Test Printer
     print(pitches)
 
@@ -84,7 +104,7 @@ def new_comment(id):
     Function that returns a list of comments for the particular pitch
     '''
     form = CommentForm()
-    pitches = Peptalk.query.filter_by(id=id).first()
+    pitches = Pitch.query.filter_by(id=id).first()
 
     if pitches is None:
         abort(404)
