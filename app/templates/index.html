@@ -4,8 +4,13 @@
 <!-- Content block -->
 {% block content %}
 
-<div class="container">
+<div class="container-fluid">
+  <h3 class="text-center" style="text-decoration: underline;">Welcome to Public Pitches Hub</h3>
+  <p class="intro" style="font: xx-large bolder italic;text-align: start; margin: 3rem;">View other people's pitches in various categories, drop yours in a minute and leave comments.</p>
   <h3 style="text-align:center;">Select a Category</h3>
+  <h3 class="add-category "><a class="btn btn-primary" href="/add/category" style="background-color:#609ef5; float:right; margin-bottom: 3rem;"><span aria-hidden="true"> Add Category</span></a></h3>   
+</div>
+
   <ul class="categories">{{ macro.displayCategoryList(categories) }}</ul>
 </div> {% endblock %}
-<footer>All Rights Reserved &copy; Mathenge Alex</footer>
+<footer><p>All Rights Reserved &copy; Mathenge Alex</p></footer>
