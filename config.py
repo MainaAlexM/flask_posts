@@ -8,6 +8,8 @@ class Config:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = config('KEY')
+    # SECRET_KEY = os.getenv['KEY']
+    # SECRET_KEY = os.environ.get('KEY')
 
 class ProdConfig(Config):
     '''
